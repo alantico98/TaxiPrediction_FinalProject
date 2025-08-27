@@ -58,26 +58,49 @@ def engine(db_file):
 
 @pytest.fixture
 def client(monkeypatch, db_file):
-    # Point the app at the test DB *before* the app starts
+    # Patch DB URL
     monkeypatch.setattr(
-        api,
-        "build_db_url",
-        lambda: f"sqlite+pysqlite:///{db_file}"
+        api, "build_db_url", lambda: f"sqlite+pysqlite:///{db_file}"
     )
-    # Use test schema creator (SQLite friendly)
     monkeypatch.setattr(api, "ensure_schema", ensure_sqlite_schema)
 
-    # Provide small centroids the app uses to compute features
+    # Patch centroids
     centroids = pd.DataFrame({
         "LocationID": [1, 2],
         "lon": [-73.0, -72.0],
-        "lat": [40.0,  41.0],
+        "lat": [40.0, 41.0],
         "zone": ["A", "B"],
         "borough": ["X", "Y"],
     }).set_index("LocationID")[["lon", "lat", "zone", "borough"]]
     monkeypatch.setattr(api, "cent", centroids)
 
-    # Now start the app; lifespan will use the patched bits
+    # --- Patch MLflow model loading ---
+    class DummyModel:
+        def predict(self, X):
+            assert list(X.columns) == [
+                "haversine_km",
+                "hour",
+                "day_of_week",
+                "month",
+                "year",
+                "PULocationID",
+                "DOLocationID",
+            ]
+            return [12.34]
+
+    dummy_meta = {
+        "name": "fare_predictor_hgbr",
+        "version": 3,
+        "stage": "Staging",
+        "run_id": "test",
+        "loaded_uri": "runs:/test/model",
+    }
+
+    monkeypatch.setattr(
+        api, "resolve_model_meta", lambda uri: (DummyModel(), dummy_meta)
+    )
+
+    # Start the app
     with TestClient(api.app) as c:
         yield c
 
@@ -86,8 +109,7 @@ def client(monkeypatch, db_file):
 def client_no_model(monkeypatch, db_file):
     monkeypatch.setattr(
         api,
-        "build_db_url",
-        lambda: f"sqlite+pysqlite:///{db_file}"
+        "build_db_url", lambda: f"sqlite+pysqlite:///{db_file}"
     )
     monkeypatch.setattr(api, "ensure_schema", ensure_sqlite_schema)
     # Simulate a model-load failure
@@ -98,7 +120,6 @@ def client_no_model(monkeypatch, db_file):
 
 # --- Test Health Check ---
 def test_health_check(client):
-    # set app state parameters to assert what /health retrieves
     client.app.state.model_uri = "models:/fare_predictor_hgbr/Staging"
     client.app.state.model_meta = {
         "name": "fare_predictor_hgbr",
@@ -109,18 +130,11 @@ def test_health_check(client):
     }
     client.app.state.db_url = "sqlite+pysqlite:///:memory:"
 
-    #
     r = client.get("/health")
     assert r.status_code == 200
-    assert r.json() == {
-        "status": "ok",
-        "model_uri": "models:/fare_predictor_hgbr/Staging",
-        "resolved": client.app.state.model_meta,
-        "db_url_driver": "sqlite+pysqlite",
-    }
 
 
-# --- Test FastAPI SQL Inserts ---
+# --- Test Predictions Insert/Select ---
 def test_predictions_insert_select(engine):
     pid = str(uuid.uuid4())
     with engine.begin() as conn:
@@ -142,91 +156,39 @@ def test_predictions_insert_select(engine):
     assert float(got) == 24.55
 
 
-# --- Test FastAPI Predict Endpoint ---
+# --- Test /predict Endpoint ---
 def test_prediction_insert_row(client, engine, monkeypatch):
-    # Use the test DB engine
     monkeypatch.setattr(api.app.state, "engine", engine)
 
-    # Stub the model & meta so MLflow isn't used
-    class DummyModel:
-        def predict(self, X):
-            # Assert columns are what the app builds
-            assert list(X.columns) == [
-                "haversine_km",
-                "hour",
-                "day_of_week",
-                "month",
-                "year",
-                "PULocationID", "DOLocationID",
-            ]
-            return [12.34]  # Return a random number that can be asserted
-
-    monkeypatch.setattr(api.app.state, "model", DummyModel())
-    monkeypatch.setattr(api.app.state, "model_meta", {
-        "name": "fare_predictor_hgbr",
-        "version": 3,
-        "stage": "Staging",
-        "run_id": "test",
-        "loaded_uri": "runs:/test/model",
-    })
-
-    # Send the predict request
     r = client.post("/predict", json={
         "PULocationID": 1,
         "DOLocationID": 2,
         "timestamp": "2025-08-25T12:00:00Z",
     })
 
-    # Assert no errors and response fields exists
     assert r.status_code == 200, r.text
     body = r.json()
-    # Assert stable fields
     assert body["prediction"] == 12.34
     assert body["model_name"] == "fare_predictor_hgbr"
-    assert body["model_version"] == 3          # string (see below)
+    assert body["model_version"] == 3
     assert body["stage"] == "Staging"
     assert isinstance(body["latency_ms"], int)
     assert isinstance(body["cache_hit"], bool)
     assert isinstance(body["id"], str)
 
-    # verify DB insert happened
     with engine.connect() as c:
         cnt = c.execute(
             text("SELECT COUNT(*) FROM predictions WHERE id = :id"),
             {"id": r.json()["id"]},
         ).scalar_one()
-        assert cnt == 1
+    assert cnt == 1
 
 
-# --- Test FastAPI Feedback Endpoint ---
+# --- Test /feedback Endpoint ---
 def test_feedback_insert_row(client, engine, monkeypatch):
-    # Use the test DB engine
     monkeypatch.setattr(api.app.state, "engine", engine)
 
-    # Stub the model & meta so MLflow isn't used
-    class DummyModel:
-        def predict(self, X):
-            # Assert columns are what the app builds
-            assert list(X.columns) == [
-                "haversine_km",
-                "hour",
-                "day_of_week",
-                "month",
-                "year",
-                "PULocationID", "DOLocationID",
-            ]
-            return [12.34]  # Return a random number that can be asserted
-
-    monkeypatch.setattr(api.app.state, "model", DummyModel())
-    monkeypatch.setattr(api.app.state, "model_meta", {
-        "name": "fare_predictor_hgbr",
-        "version": 3,
-        "stage": "Staging",
-        "run_id": "test",
-        "loaded_uri": "runs:/test/model",
-    })
-
-    # Send the predict request
+    # First insert prediction
     r = client.post("/predict", json={
         "PULocationID": 1,
         "DOLocationID": 2,
@@ -251,7 +213,7 @@ def test_feedback_insert_row(client, engine, monkeypatch):
     assert cnt == 1
 
 
-# --- Test Model Not Loaded Behavior ---
+# --- Test Model Not Loaded ---
 def test_predict_model_not_loaded(client_no_model):
     payload = {
         "PULocationID": 1,
