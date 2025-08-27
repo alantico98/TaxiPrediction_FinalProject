@@ -1,0 +1,181 @@
+# Gives the workflow a name so you can identify it in the Actions Tab
+name: CI/CD
+
+# Defines when the workflow should run
+on:
+  push:
+    branches: [ main, dev ] # This will trigger on pushes to the main and dev branches
+  pull_request:
+    branches: [ main ]  # This will trigger PRs whose *base* is main
+  workflow_dispatch:   # Allows manual runs from the Actions tab
+
+# Configures what the workflow can access via the GITHUB_TOKEN
+permissions:
+  contents: read  # allows reading repo code
+  packages: write # to push to GitHub Container Registry (GHCR)
+  id-token: write # enables OpenID Connect if you later want to use AWS, GCP, Azure, etc.
+  # NOTE: GITHUB_TOKEN suffices to push to GHCR from this workflow
+
+# Global environment variables for the workflow
+env:
+  # GHCR: This is GitHub’s service for storing and distributing Docker images
+  REGISTRY: ghcr.io # domain name for GHCR
+  IMAGE_API: ${{ github.repository }}/api        # image path for API container
+  IMAGE_MON: ${{ github.repository }}/monitoring # image path for Monitor container
+
+jobs:
+  # -------------------------------
+  # 1. Run linting and tests
+  # -------------------------------
+  test: # Defines a job that runs on a fresh Ubuntu VM
+    runs-on: ubuntu-latest
+    steps:
+      # Clones the repository into the runner’s workspace
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Install and configure Python 3.13 on the runner
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+
+      # ---- API ----
+      # Install FastAPI dependencies (requirements for api) and developer tools
+      - name: Install API deps
+        working-directory: api
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest flake8
+
+      # Run lint checks on API code
+      - name: Lint API code
+        working-directory: api
+        run: |
+          flake8 .
+
+      # Run API unit tests using pytest
+      - name: Run API tests
+        working-directory: api
+        run: pytest -q
+
+      # ---- Monitoring ----
+      # Install Streamlit Monitor dependencies and developer tools
+      - name: Install Monitor deps
+        working-directory: monitoring
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest flake8
+
+      # Run lint checks on Monitor code
+      - name: Lint Monitor code
+        working-directory: monitoring
+        run: |
+          flake8 .
+
+      # Run Monitor unit tests using pytest
+      - name: Run Monitor tests
+        working-directory: monitoring
+        run: pytest -q
+
+  # # -------------------------------
+  # # 2. Build and push Docker images
+  # # -------------------------------
+  # build_and_push:
+  #   runs-on: ubuntu-latest
+  #   needs: test # only run if the "test" job succeeds
+  #   if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }} # only run on pushes to main
+  #   steps:
+  #     # Use a fresh runner to clone the repository again
+  #     - uses: actions/checkout@v4
+
+  #     # Authenticate to GitHub Container Registry (GHCR) using the built-in token
+  #     - name: Log into GitHub Container Registry (GHCR)
+  #       uses: docker/login-action@v3
+  #       with:
+  #         registry: ghcr.io
+  #         username: ${{ github.actor }}
+  #         password: ${{ secrets.GITHUB_TOKEN }}  # the input key must be "password"
+
+  #     # Enables advanced Docker builds (multi-platform, caching)
+  #     - name: Set up Docker Buildx
+  #       uses: docker/setup-buildx-action@v3
+
+  #     # Build the API Docker image from ./api and push it to GHCR
+  #     - name: Build and push API image
+  #       uses: docker/build-push-action@v6
+  #       with:
+  #         context: ./api
+  #         push: true
+  #         # Push the image to GHCR with two tags: commit SHA and "latest"
+  #         # Remember IMAGE_API is set up above in the env: section
+  #         # The IMAGE_API is set to the commit SHA by default, but you can override it
+  #         tags: |
+  #           ghcr.io/${{ env.IMAGE_API }}:${{ github.sha }}
+  #           ghcr.io/${{ env.IMAGE_API }}:latest
+
+  #     # Build the Monitor Docker image from ./monitoring and push it to GHCR
+  #     - name: Build and push Monitor image
+  #       uses: docker/build-push-action@v6
+  #       with:
+  #         context: ./monitoring
+  #         push: true
+  #         # Push the image to GHCR with two tags: commit SHA and "latest"
+  #         # Remember IMAGE_MON is set up above in the env: section
+  #         # The IMAGE_MON is set to the commit SHA by default, but you can override it
+  #         tags: |
+  #           ghcr.io/${{ env.IMAGE_MON }}:${{ github.sha }}
+  #           ghcr.io/${{ env.IMAGE_MON }}:latest
+
+  # # -------------------------------
+  # # 3. Deploy to EC2 over SSH
+  # # -------------------------------
+  # deploy:
+  #   runs-on: ubuntu-latest
+  #   needs: build_and_push # only run if the "build_and_push" job succeeds
+  #   if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }} # only deploy on pushes or pulls to main
+  #   steps:
+  #     # Extract the owner and repo name and store them in environment variables
+  #     - name: Prepare variables
+  #       run: |
+  #         echo "OWNER=${{ github.repository_owner }}" >> $GITHUB_ENV
+  #         echo "REPO=$(echo '${{ github.repository }}' | cut -d'/' -f2)" >> $GITHUB_ENV
+
+  #     # Securely copy docker-compose.yml to the EC2 instance
+  #     - name: Copy compose file to EC2
+  #       uses: appleboy/scp-action@v0.1.7
+  #       with:
+  #         host: ${{ secrets.EC2_HOST }}     # IP or domain of the EC2 instance
+  #         username: ${{ secrets.EC2_USER }} # SSH username for the EC2 instance (e.g., ubuntu)
+  #         key: ${{ secrets.EC2_SSH_KEY }}   # Private SSH key to access the EC2 instance
+  #         source: "docker-compose.yml"      # File to copy
+  #         target: "~/taxi-fare-app"         # Destination directory on the EC2 instance
+
+  #     # Connect to EC2 over SSH and deploy the updated containers
+  #     - name: Deploy via SSH
+  #       uses: appleboy/ssh-action@v1.2.0
+  #       with:
+  #         host: ${{ secrets.EC2_HOST }}
+  #         username: ${{ secrets.EC2_USER }}
+  #         key: ${{ secrets.EC2_SSH_KEY }}
+  #         script: |
+  #           # Fail on any error, unset variable, or pipe failure
+  #           set -euo pipefail
+  #           mkdir -p ~/taxi-fare-app
+  #           cd ~/taxi-fare-app
+
+  #           # Create or update .env file used by docker-compose.yml
+  #           echo "GH_OWNER=${{ env.OWNER }}" > .env
+  #           echo "GH_REPO=${{ env.REPO }}" >> .env
+  #           echo "IMAGE_TAG=${{ github.sha }}" >> .env
+
+  #           # Log in to GHCR (EC2 needs READ permission to pull private images)
+  #           echo "${{ secrets.GHCR_READ_TOKEN }}" | docker login ghcr.io -u "${{ secrets.GHCR_READ_USER }}" --password-stdin
+
+  #           # Pull the new images and restart services
+  #           docker compose pull
+  #           docker compose up -d
+
+  #           # Clean up dangling images to save disk space
+  #           docker image prune -f
