@@ -227,12 +227,12 @@ docker build -t sentiment-monitor ./monitoring
 # Run on FastAPI EC2
 docker run -d --rm --name api \
 -p 8000:8000 \
-sentiment-api
+taxi-api
 
 # Run on Streamlit EC2
 docker run -d --rm --name monitor \
 -p 8501:8501 \
-sentiment-monitor
+taxi-monitor
 ```
 
 7. Access the applications using your EC2 instance Public IP
