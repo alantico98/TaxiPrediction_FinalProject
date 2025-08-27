@@ -205,10 +205,10 @@ sudo systemctl start docker
 sudo systemctl enable docker
 ```
 
-5. Clone the repo to your EC2 instance
+5. Clone the repo to both EC2 instances
 ```bash
 git clone https://github.com/alantico98/TaxiPrediction_FinalProject.git
-cd Assignment6_CI-CD-Testing
+cd TaxiPrediction_FinalProject
 
 # Without merging, git checkout the dev branch
 git checkout dev
