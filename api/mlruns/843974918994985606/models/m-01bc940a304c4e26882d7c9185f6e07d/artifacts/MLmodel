@@ -1,0 +1,32 @@
+artifact_path: file:///C:/Users/Alan/OneDrive/Documents/DU_Stuff/DU_Data_Science_Courses/comp_4705_Adv_Topics_MLOps/TaxiPrediction_FinalProject/api/mlruns/843974918994985606/models/m-01bc940a304c4e26882d7c9185f6e07d/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.13.2
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.7.0
+is_signature_from_type_hint: false
+mlflow_version: 3.3.1
+model_id: m-01bc940a304c4e26882d7c9185f6e07d
+model_size_bytes: 5824069
+model_uuid: m-01bc940a304c4e26882d7c9185f6e07d
+prompts: null
+run_id: d89dd5a59f7a43e6a05b776481960e95
+signature:
+  inputs: '[{"type": "float", "name": "haversine_km", "required": true}, {"type":
+    "integer", "name": "hour", "required": true}, {"type": "integer", "name": "day_of_week",
+    "required": true}, {"type": "integer", "name": "month", "required": true}, {"type":
+    "integer", "name": "year", "required": true}, {"type": "integer", "name": "PULocationID",
+    "required": true}, {"type": "integer", "name": "DOLocationID", "required": true}]'
+  outputs: '[{"type": "tensor", "tensor-spec": {"dtype": "float64", "shape": [-1]}}]'
+  params: null
+type_hint_from_example: false
+utc_time_created: '2025-08-25 20:29:46.400026'

@@ -1,0 +1,10 @@
+artifact_location: file:///C:/Users/Alan/OneDrive/Documents/DU_Stuff/DU_Data_Science_Courses/comp_4705_Adv_Topics_MLOps/TaxiPrediction_FinalProject/api/mlruns/843974918994985606/models/m-01bc940a304c4e26882d7c9185f6e07d/artifacts
+creation_timestamp: 1756153786336
+experiment_id: '843974918994985606'
+last_updated_timestamp: 1756153795885
+model_id: m-01bc940a304c4e26882d7c9185f6e07d
+model_type: null
+name: model
+source_run_id: d89dd5a59f7a43e6a05b776481960e95
+status: 2
+status_message: null

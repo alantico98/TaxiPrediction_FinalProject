@@ -1,0 +1,699 @@
+[
+    {
+      "text": "An absolute masterpiece. The direction, acting, and score were all flawless.",
+      "true_label": "positive"
+    },
+    {
+      "text": "A complete waste of time. The plot was nonsensical and the characters were flat.",
+      "true_label": "negative"
+    },
+    {
+      "text": "I was pleasantly surprised by this film. It had a lot of heart.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The movie tried to be clever but ended up being confusing and pretentious.",
+      "true_label": "negative"
+    },
+    {
+      "text": "A fun ride from start to finish! Highly recommend for a family night.",
+      "true_label": "positive"
+    },
+    {
+      "text": "I've seen better acting in a high school play. Truly dreadful.",
+      "true_label": "negative"
+    },
+    {
+      "text": "The cinematography was stunning, every frame was like a painting.",
+      "true_label": "positive"
+    },
+    {
+      "text": "It dragged on for far too long. Could have been 30 minutes shorter.",
+      "true_label": "negative"
+    },
+    {
+      "text": "A heartwarming story that will stay with you long after the credits roll.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The dialogue was so clunky and unnatural. It took me right out of the movie.",
+      "true_label": "negative"
+    },
+    {
+      "text": "Hilarious! I haven't laughed this hard at a movie in years.",
+      "true_label": "positive"
+    },
+    {
+      "text": "Predictable from the first scene. No surprises, no tension.",
+      "true_label": "negative"
+    },
+    {
+      "text": "The lead actor gave a powerhouse performance.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The special effects were cheap and unconvincing.",
+      "true_label": "negative"
+    },
+    {
+      "text": "A thought-provoking film that challenges the audience.",
+      "true_label": "positive"
+    },
+    {
+      "text": "I was bored to tears. Nothing interesting happened.",
+      "true_label": "negative"
+    },
+    {
+      "text": "The chemistry between the two leads was undeniable.",
+      "true_label": "positive"
+    },
+    {
+      "text": "A disappointing sequel that fails to capture the magic of the original.",
+      "true_label": "negative"
+    },
+    {
+      "text": "An edge-of-your-seat thriller with twists you won't see coming.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The soundtrack was generic and forgettable.",
+      "true_label": "negative"
+    },
+    {
+      "text": "Visually spectacular and emotionally resonant.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The plot holes were so big you could drive a truck through them.",
+      "true_label": "negative"
+    },
+    {
+      "text": "A must-see for any fan of the genre.",
+      "true_label": "positive"
+    },
+    {
+      "text": "It felt like a cheap knock-off of a much better movie.",
+      "true_label": "negative"
+    },
+    {
+      "text": "The ending was perfect and incredibly satisfying.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The pacing was all over the place, some scenes were rushed while others dragged.",
+      "true_label": "negative"
+    },
+    {
+      "text": "A truly unique and original vision.",
+      "true_label": "positive"
+    },
+    {
+      "text": "I couldn't connect with any of the characters.",
+      "true_label": "negative"
+    },
+    {
+      "text": "The costume design was exquisite and detailed.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The humor felt forced and most of the jokes didn't land.",
+      "true_label": "negative"
+    },
+    {
+      "text": "A powerful and moving documentary.",
+      "true_label": "positive"
+    },
+    {
+      "text": "This film is a mess from start to finish.",
+      "true_label": "negative"
+    },
+    {
+      "text": "I was captivated by the story.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The villain was not threatening at all.",
+      "true_label": "negative"
+    },
+    {
+      "text": "A brilliant script with sharp, witty dialogue.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The movie just felt empty and soulless.",
+      "true_label": "negative"
+    },
+    {
+      "text": "The action sequences were breathtaking.",
+      "true_label": "positive"
+    },
+    {
+      "text": "A story we've seen a hundred times before, with nothing new to add.",
+      "true_label": "negative"
+    },
+    {
+      "text": "An instant classic. Will be rewatching this for years to come.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The director clearly had no idea what they were doing.",
+      "true_label": "negative"
+    },
+    {
+      "text": "It's a simple story, but told beautifully.",
+      "true_label": "positive"
+    },
+    {
+      "text": "Just plain bad. I regret watching it.",
+      "true_label": "negative"
+    },
+    {
+      "text": "The world-building was immersive and fascinating.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The ending felt rushed and unsatisfying.",
+      "true_label": "negative"
+    },
+    {
+      "text": "A feel-good movie that will leave you smiling.",
+      "true_label": "positive"
+    },
+    {
+      "text": "I was checking my watch the whole time.",
+      "true_label": "negative"
+    },
+    {
+      "text": "The supporting cast was just as strong as the leads.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The movie takes itself way too seriously.",
+      "true_label": "negative"
+    },
+    {
+      "text": "A cinematic achievement on every level.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The writing is lazy and uninspired.",
+      "true_label": "negative"
+    },
+    {
+      "text": "Absolutely charming and delightful.",
+      "true_label": "positive"
+    },
+    {
+      "text": "A confusing plot that never really comes together.",
+      "true_label": "negative"
+    },
+    {
+      "text": "The practical effects were impressive.",
+      "true_label": "positive"
+    },
+    {
+      "text": "It was so bad it was almost funny.",
+      "true_label": "negative"
+    },
+    {
+      "text": "A gripping tale of survival.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The movie was emotionally manipulative.",
+      "true_label": "negative"
+    },
+    {
+      "text": "The director's passion for the subject is evident.",
+      "true_label": "positive"
+    },
+    {
+      "text": "I can't believe I paid money to see this.",
+      "true_label": "negative"
+    },
+    {
+      "text": "A visually stunning and epic adventure.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The characters made decisions that made no sense.",
+      "true_label": "negative"
+    },
+    {
+      "text": "The score perfectly complemented the film's tone.",
+      "true_label": "positive"
+    },
+    {
+      "text": "A movie with a great premise but poor execution.",
+      "true_label": "negative"
+    },
+    {
+      "text": "I was on the edge of my seat the entire time.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The movie was a total snoozefest.",
+      "true_label": "negative"
+    },
+    {
+      "text": "A beautiful and poignant film about love and loss.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The script needed a few more rewrites.",
+      "true_label": "negative"
+    },
+    {
+      "text": "The child actors were surprisingly good.",
+      "true_label": "positive"
+    },
+    {
+      "text": "It was trying to be deep but came off as shallow.",
+      "true_label": "negative"
+    },
+    {
+      "text": "A fantastic adaptation of the book.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The movie completely missed the point of the source material.",
+      "true_label": "negative"
+    },
+    {
+      "text": "The stunt work was incredible.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The story was full of clichés.",
+      "true_label": "negative"
+    },
+    {
+      "text": "A mind-bending sci-fi that will make you think.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The movie was a cheap cash grab.",
+      "true_label": "negative"
+    },
+    {
+      "text": "The production design was top-notch.",
+      "true_label": "positive"
+    },
+    {
+      "text": "I found the main character to be very annoying.",
+      "true_label": "negative"
+    },
+    {
+      "text": "A refreshing and original comedy.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The movie was just a series of loud noises and explosions.",
+      "true_label": "negative"
+    },
+    {
+      "text": "The film handles its sensitive subject matter with grace.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The plot twist was obvious from a mile away.",
+      "true_label": "negative"
+    },
+    {
+      "text": "A true cinematic experience. See it on the biggest screen possible.",
+      "true_label": "positive"
+    },
+    {
+      "text": "I felt nothing for the characters.",
+      "true_label": "negative"
+    },
+    {
+      "text": "The editing was sharp and kept the pace moving.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The movie was a technical mess, with bad sound and lighting.",
+      "true_label": "negative"
+    },
+    {
+      "text": "A genuinely scary horror film.",
+      "true_label": "positive"
+    },
+    {
+      "text": "Not scary at all, just a bunch of cheap jump scares.",
+      "true_label": "negative"
+    },
+    {
+      "text": "The film's message was powerful and timely.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The message was heavy-handed and preachy.",
+      "true_label": "negative"
+    },
+    {
+      "text": "I loved the quirky and eccentric characters.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The movie was an insult to my intelligence.",
+      "true_label": "negative"
+    },
+    {
+      "text": "An underrated gem that deserves more attention.",
+      "true_label": "positive"
+    },
+    {
+      "text": "Overhyped and underwhelming.",
+      "true_label": "negative"
+    },
+    {
+      "text": "The director's style is on full display here.",
+      "true_label": "positive"
+    },
+    {
+      "text": "A soulless corporate product.",
+      "true_label": "negative"
+    },
+    {
+      "text": "A perfect movie for a rainy day.",
+      "true_label": "positive"
+    },
+    {
+      "text": "I wanted to walk out of the theater halfway through.",
+      "true_label": "negative"
+    },
+    {
+      "text": "The film's ambiguity is its greatest strength.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The movie was just confusing for the sake of being confusing.",
+      "true_label": "negative"
+    },
+    {
+      "text": "A wild and entertaining ride.",
+      "true_label": "positive"
+    },
+    {
+      "text": "I've had more exciting naps.",
+      "true_label": "negative"
+    },
+    {
+      "text": "The attention to historical detail was impressive.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The movie played fast and loose with the facts.",
+      "true_label": "negative"
+    },
+    {
+      "text": "A triumph of independent filmmaking.",
+      "true_label": "positive"
+    },
+    {
+      "text": "It looked like it was filmed on a shoestring budget, and not in a good way.",
+      "true_label": "negative"
+    },
+    {
+      "text": "The film has a great sense of humor.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The jokes were juvenile and offensive.",
+      "true_label": "negative"
+    },
+    {
+      "text": "A complex and layered story.",
+      "true_label": "positive"
+    },
+    {
+      "text": "A simplistic and one-dimensional story.",
+      "true_label": "negative"
+    },
+    {
+      "text": "The final act was emotionally devastating in the best way.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The movie fell apart in the third act.",
+      "true_label": "negative"
+    },
+    {
+      "text": "A bold and audacious film.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The movie played it way too safe.",
+      "true_label": "negative"
+    },
+    {
+      "text": "I was thoroughly entertained.",
+      "true_label": "positive"
+    },
+    {
+      "text": "I was thoroughly bored.",
+      "true_label": "negative"
+    },
+    {
+      "text": "The film's atmosphere was thick with tension.",
+      "true_label": "positive"
+    },
+    {
+      "text": "There was absolutely no tension or suspense.",
+      "true_label": "negative"
+    },
+    {
+      "text": "A masterpiece of suspense.",
+      "true_label": "positive"
+    },
+    {
+      "text": "A predictable and dull thriller.",
+      "true_label": "negative"
+    },
+    {
+      "text": "The characters felt like real people.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The characters were walking stereotypes.",
+      "true_label": "negative"
+    },
+    {
+      "text": "I can't wait to see what this director does next.",
+      "true_label": "positive"
+    },
+    {
+      "text": "I hope this director never makes another movie.",
+      "true_label": "negative"
+    },
+    {
+      "text": "A stunning debut from a promising new filmmaker.",
+      "true_label": "positive"
+    },
+    {
+      "text": "An amateurish effort that should have stayed in film school.",
+      "true_label": "negative"
+    },
+    {
+      "text": "The film is a visual feast.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The film was ugly to look at.",
+      "true_label": "negative"
+    },
+    {
+      "text": "A smart and sophisticated comedy of manners.",
+      "true_label": "positive"
+    },
+    {
+      "text": "A dumb and crude comedy with no redeeming qualities.",
+      "true_label": "negative"
+    },
+    {
+      "text": "The film's social commentary was sharp and insightful.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The movie's attempt at social commentary was clumsy and obvious.",
+      "true_label": "negative"
+    },
+    {
+      "text": "A truly inspiring story of human resilience.",
+      "true_label": "positive"
+    },
+    {
+      "text": "A depressing and miserable experience.",
+      "true_label": "negative"
+    },
+    {
+      "text": "The film had a wonderful, whimsical quality.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The movie was trying to be whimsical but just came off as twee.",
+      "true_label": "negative"
+    },
+    {
+      "text": "A perfect blend of comedy and drama.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The movie couldn't decide if it wanted to be a comedy or a drama, and failed at both.",
+      "true_label": "negative"
+    },
+    {
+      "text": "The ensemble cast was fantastic.",
+      "true_label": "positive"
+    },
+    {
+      "text": "A waste of a talented cast.",
+      "true_label": "negative"
+    },
+    {
+      "text": "A compelling character study.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The main character was uninteresting and I didn't care what happened to them.",
+      "true_label": "negative"
+    },
+    {
+      "text": "The film is a technical marvel.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The movie felt like it was made by people who don't know how to make movies.",
+      "true_label": "negative"
+    },
+    {
+      "text": "A delightful romp.",
+      "true_label": "positive"
+    },
+    {
+      "text": "A tedious slog.",
+      "true_label": "negative"
+    },
+    {
+      "text": "The film's slow burn was incredibly effective.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The movie was just slow and boring.",
+      "true_label": "negative"
+    },
+    {
+      "text": "A heartfelt tribute to a bygone era.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The movie was stuck in the past and felt dated.",
+      "true_label": "negative"
+    },
+    {
+      "text": "The film's non-linear narrative was brilliant.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The non-linear narrative just made the story confusing.",
+      "true_label": "negative"
+    },
+    {
+      "text": "A cinematic poem.",
+      "true_label": "positive"
+    },
+    {
+      "text": "A self-indulgent mess.",
+      "true_label": "negative"
+    },
+    {
+      "text": "The film had a great sense of place.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The setting was generic and uninspired.",
+      "true_label": "negative"
+    },
+    {
+      "text": "A thrilling conclusion to the trilogy.",
+      "true_label": "positive"
+    },
+    {
+      "text": "A disappointing end to a once-great series.",
+      "true_label": "negative"
+    },
+    {
+      "text": "The film is pure escapism.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The movie was so grim and unpleasant, I wish I could escape from the memory of it.",
+      "true_label": "negative"
+    },
+    {
+      "text": "A tour de force of acting.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The acting was wooden and unconvincing.",
+      "true_label": "negative"
+    },
+    {
+      "text": "The film's use of color was masterful.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The color grading was distracting and ugly.",
+      "true_label": "negative"
+    },
+    {
+      "text": "A subtle and nuanced performance.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The actor was over-the-top and chewing the scenery.",
+      "true_label": "negative"
+    },
+    {
+      "text": "The film had a lot of charm.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The movie was completely devoid of charm.",
+      "true_label": "negative"
+    },
+    {
+      "text": "A clever satire of modern life.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The movie's attempt at satire was toothless and unfunny.",
+      "true_label": "negative"
+    },
+    {
+      "text": "The film was a breath of fresh air.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The movie was stale and derivative.",
+      "true_label": "negative"
+    },
+    {
+      "text": "A deeply moving and personal story.",
+      "true_label": "positive"
+    },
+    {
+      "text": "I couldn't have cared less about the story.",
+      "true_label": "negative"
+    },
+    {
+      "text": "The film was a technical and artistic triumph.",
+      "true_label": "positive"
+    },
+    {
+      "text": "The movie was a failure on every level.",
+      "true_label": "negative"
+    }
+  ]
+  

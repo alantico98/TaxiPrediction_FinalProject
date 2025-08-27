@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/Alan/OneDrive/Documents/DU_Stuff/DU_Data_Science_Courses/comp_4705_Adv_Topics_MLOps/TaxiPrediction_FinalProject/api/mlruns/843974918994985606/4959272dda1c49408fb98c5cea718bf9/artifacts
+end_time: 1756115481017
+entry_point_name: ''
+experiment_id: '843974918994985606'
+lifecycle_stage: active
+run_id: 4959272dda1c49408fb98c5cea718bf9
+run_name: HGBR_grid_timeseries
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1756114290429
+status: 4
+tags: []
+user_id: Alan

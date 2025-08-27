@@ -1,0 +1,8 @@
+aliases:
+  Staging: '3'
+creation_timestamp: 1756115480734
+deployment_job_id: null
+deployment_job_state: null
+description: null
+last_updated_timestamp: 1756153796546
+name: fare_predictor_hgbr

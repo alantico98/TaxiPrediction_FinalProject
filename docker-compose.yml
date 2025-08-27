@@ -1,0 +1,34 @@
+name: sentiment-application
+
+services:
+  api:
+    # During dev you can build locally; in CI/CD we will replace this with an image from GHCR
+    image: ghcr.io/${GH_OWNER}/${GH_REPO}/api:${IMAGE_TAG}
+    # For local dev, you can uncomment the build block and comment out the image line:
+    # build: ./api
+
+    ports:
+      - "8000:8000"
+    volumes:
+      - sentiment-logs:/logs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-X", "GET", "http://localhost:8000/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  monitor:
+    image: ghcr.io/${GH_OWNER}/${GH_REPO}/monitoring:${IMAGE_TAG}
+    # build: ./monitor
+    ports:
+      - "8501:8501"
+    depends_on:
+      api:
+        condition: service_healthy
+    volumes:
+      - sentiment-logs:/logs
+    restart: unless-stopped
+
+volumes:
+  sentiment-logs:

@@ -1,0 +1,22 @@
+{
+  "hgb__learning_rate": [
+    0.03,
+    0.05,
+    0.08
+  ],
+  "hgb__max_iter": [
+    300,
+    500,
+    800
+  ],
+  "hgb__max_leaf_nodes": [
+    31,
+    64,
+    127
+  ],
+  "hgb__min_samples_leaf": [
+    20,
+    50,
+    100
+  ]
+}
