@@ -7,15 +7,9 @@ pandas
 scikit-learn==1.7.0
 joblib
 requests
-os
-subprocess
-datetime
 numpy
 geopandas
 mlflow
 pytest
-uuid
-contextlib
 sqlalchemy
-time
 boto3
