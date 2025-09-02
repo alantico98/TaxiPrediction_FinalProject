@@ -43,8 +43,6 @@ def resolve_model_meta(model_uri: str):
         return mlflow.pyfunc.load_model(model_uri), m
     # Schema is "models:/<name>/<Production/Staging/etc.>"
     _, rest = model_uri.split("models:/", 1)
-    # name: registered model name (e.g. fare_predictor_hgbr)
-    # ver_or_stage: either numeric ("3") or a stage label (e.g. "Staging")
     name, alias = rest.split("/", 1)
 
     try:
@@ -53,10 +51,6 @@ def resolve_model_meta(model_uri: str):
     except MlflowException:
         # If Production, Stage, Archived, etc., grab the latest version
         mv = client.get_latest_versions(name, stages=[alias])[0]
-        # NOTE: This might be overkill, since if you know what stage
-        #       you're deploying the model to, then you should only need
-        #       mv = client.get_latest_version(name, stages=["Stage"]),
-        #       but this setup does keep it dynamic
 
     # URI that points to the artifact that was registered under that run
     model = None
@@ -102,7 +96,6 @@ def build_db_url():
 
 # --- SQLAlchemy engine + schema bootstrap ---
 DDL_STMTS = [
-    # (optional) put everything in its own schema
     "CREATE SCHEMA IF NOT EXISTS taxi",
 
     # predictions table
@@ -156,8 +149,6 @@ DDL_STMTS = [
 def ensure_schema(engine):
     # Run each DDL separately (cleaner than one multi-statement execute)
     with engine.begin() as conn:
-        # Optional: set search_path so your existing INSERT into "predictions"
-        # works without schema prefix
         conn.execute(text("SET search_path TO taxi, public"))
         for stmt in DDL_STMTS:
             conn.execute(text(stmt))

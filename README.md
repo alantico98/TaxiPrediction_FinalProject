@@ -1,8 +1,8 @@
-# Movie Review Sentiment Analyzer
+# NYC Yellow Taxi Fare Prediction
 
 This project implements a multi-container MLOps system that:
 
-* Serves sentiment predictions, either **positive** or **negative**, via a FastAPI service
+* Serves yellow taxi cab fare predictions in NYC, via a FastAPI service
 * Monitors model behavior and data drift in real-time using a Streamlit dashboard
 * Shares prediction logs using a Docker volume, accessible to both containers
 * Includes a script that uses a test file to systematically evaluate model performance via the API
@@ -63,7 +63,7 @@ Follow these steps to run the app on an EC2 instance:
 			2. As Source, choose the EC2 Security group you created above (e.g. ec2-app-sg)
 	- One to attach to both EC2 instances (e.g. ec2-app-sg)
 
-2. Open an EC2 Page, select "Launch Instance" for Streamlit
+3. Open an EC2 Page, select "Launch Instance" for Streamlit
 	- Choose a name for your web server. Ex: "My Streamlit Application"
 	- Under "Application and OS Images", select "Ubuntu". The default Ubuntu 24.04 LTS version is fine
 	- Choose the architecture that suits your machine type (if not defaulted to the correct one already)
@@ -86,9 +86,9 @@ Follow these steps to run the app on an EC2 instance:
 			* Port 5432, Source "Default (should be the same security group as your RDS Instance)"
 
 
-3. Repeat step 2, but for FastAPI
+4. Repeat step 3, but for FastAPI
 
-2. Open an 'Aurora and RDS' page, select "Create Database"
+5. Open an 'Aurora and RDS' page, select "Create Database"
 	- From engine, select "PostgreSQL"
 	- Under Templates, select "Sandbox" (this is the free version)
 	- Select "Single-AZ DB instance deployment"
@@ -118,7 +118,7 @@ Follow these steps to run the app on an EC2 instance:
 			5. Add rule: Port Range=5432, Source=<your-ec2-security-group>
 	- Record your AWS RDS endpoint (e.g. taxi-db.crsvb7bvjgmt.us-east-1.rds.amazonaws.com)
 
-4. Navigate back to EC2 page to connect to your EC2 Instances
+6. Navigate back to EC2 page to connect to your EC2 Instances
 	- If using AWS, select your instance under "Instances" and then select "Connect" via Public IP
 	- If SSH'ing (using the Key Pair you generated)
 	    1. ssh -i /path/to/your/key.pem ubuntu@<EC2_PUBLIC_IPv4_ADDRESS>
@@ -138,7 +138,7 @@ Follow these steps to run the app on an EC2 instance:
             ssh -i ~/.ssh/key.pem ubuntu@<EC2_PUBLIC_IPv4_ADDRESS>
             ```
 
-5. Install Docker on both servers (once)
+7. Install Docker on both servers (once)
 	- If you have trouble setting up the connection this way, navigate back to AWS Aurora & RDS
 	- Once there, select your DB, then scroll down to 'Connected compute resources'
 	- Select 'Setup EC2 connection'
@@ -158,7 +158,7 @@ psql --version
 psql "host=<rds-endpoint>.rds.amazonaws.com port=5432 dbname=postgres user=<app-user> password=<db-password> sslmode=require" -c "select now();"
 ```
 
-5. Store environment variables
+8. Store environment variables
 ```bash
 # Store the environment variables on both EC2 servers so Streamlit and FastAPI can access them
 export DB_HOST="<rds-endpoint>.rds.amazonaws.com"
@@ -171,7 +171,7 @@ export AWS_REGION="us-east-1"
 export DB_URL="<your-db-url>"
 ```
 
-5. Install Docker on both servers
+9. Install Docker on both servers
 ```bash
 sudo apt-get update -y
 sudo apt-get install -y ca-certificates curl gnupg
@@ -205,7 +205,7 @@ sudo systemctl start docker
 sudo systemctl enable docker
 ```
 
-5. Clone the repo to both EC2 instances
+10. Clone the repo to both EC2 instances
 ```bash
 git clone https://github.com/alantico98/TaxiPrediction_FinalProject.git
 cd TaxiPrediction_FinalProject
@@ -214,9 +214,7 @@ cd TaxiPrediction_FinalProject
 git checkout dev
 ```
 
-5. (Update) Start a local MLflow tracking server with registry
-
-6. Deploy the containers in detached mode to build and run the containers
+11. Deploy the containers in detached mode to build and run the containers
 ```bash
 # On FastAPI EC2 instance
 docker build -t sentiment-api ./api
@@ -235,12 +233,12 @@ docker run -d --rm --name monitor \
 taxi-monitor
 ```
 
-7. Access the applications using your EC2 instance Public IP
+12. Access the applications using your EC2 instance Public IP
 
     * FastAPI docs: https://<EC2_PUBLIC_IP>:8000/docs
     * Streamlit dashboard: https://<EC2_PUBLIC_IP>:8501
 
-8. When finished, run the following to close and clean up the docker images
+13. When finished, run the following to close and clean up the docker images
 ```bash
 # Clean up FastAPI container on FastAPI EC2
 docker stop api || true
